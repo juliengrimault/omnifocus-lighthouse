@@ -1,4 +1,6 @@
 require "omnifocus-lighthouse/version"
+require "yaml"
+require 'lighthouse-api'
 
 module Omnifocus::Lighthouse
   PREFIX  = "LH"
@@ -16,7 +18,9 @@ module Omnifocus::Lighthouse
   end
 
   def create_config_file(path)
-  	config = { :api_token => "TOKEN" }
+  	config = { :account => "ACCOUNT", 
+               :api_token => "TOKEN"
+              }
 
       File.open(path, "w") { |f|
         YAML.dump(config, f)
@@ -25,23 +29,16 @@ module Omnifocus::Lighthouse
 
   def populate_lighthouse_tickets
   	config = load_or_create_config
-  	api_token = config[:api_token]
+    Lighthouse.account = config[:account]
+  	Lighthouse.token = config[:api_token]
 
-  	projects = fetch_projects(api_token)
+  	projects = Project.find(:all)
   	projects.each do |project|
-  		fetch_tickets(project).each do |ticket|
-			process_tickets(project, tickets)
+      project.tickets.each do |ticket|
+        process_tickets(project, ticket)
   		end
   	end
 
-  end
-
-  def fetch_projects(api_token)
-  	nil
-  end
-
-  def fetch_tickets(project)
-  	nil
   end
 
   def process_ticket(project, ticket)
