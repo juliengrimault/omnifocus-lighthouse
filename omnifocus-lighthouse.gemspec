@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
 
   gem.summary       = %q{Plugin for omnifocus gem to provide Ligthouse BTS synchronization.}
 
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/juliengrimault/omnifocus-lighthouse"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
