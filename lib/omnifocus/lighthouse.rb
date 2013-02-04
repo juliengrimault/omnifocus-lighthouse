@@ -57,11 +57,7 @@ module OmniFocus::Lighthouse
       description = "#{ticket.latest_body}\n\n--------------------------------------------------------\n#{ticket.url}"
       of_project = "#{project.name}"
 
-      bug_db[of_project][ticket_id] = ["#{ticket.id}: #{ticket.title}", description]
+      bug_db[of_project][ticket_id] = ["#{ticket_id}: #{ticket.title}", description]
     end
-  end
-
-  def ticket_url(project, ticket)
-    "https://#{Lighthouse.account}.lighthouseapp.com/projects/#{project.id}/tickets/#{ticket.id}"
   end
 end
